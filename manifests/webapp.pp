@@ -19,6 +19,7 @@ define django::webapp(
     $repo_name,
     $settings_module,
     $location,
+    $vhost=undef,
     $upgrade=false,
     $code_path="${django::params::location}",
 ) {
@@ -38,8 +39,8 @@ define django::webapp(
     }
 
     # Create an nginx instance
-    nginx::resource::vhost { $name:
-        ensure => present,
+    nginx::resource::location { $name:
+        vhost => $vhost,
         proxy => "unix:/tmp/uwsgi.${name}.sock",
         uwsgi => true,
         location => $location,
