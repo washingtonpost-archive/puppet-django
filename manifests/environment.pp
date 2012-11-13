@@ -2,6 +2,7 @@ define django::environment(
     $env_name,
     $requirements='requirements.txt',
     $upgrade=true,
+    $pythonpath=[],
 ) {
     if $upgrade == true {
         $pip_upgrade = '-U'
@@ -14,6 +15,13 @@ define django::environment(
         path => $path,
         user => "${django::params::user}",
         logoutput => true,
+    }
+
+    file {"add_to_path_${name}":
+        ensure => present,
+        path => "${django::params::location}${env_name}/lib/python/site-packages/extra.pth"
+        content => template('pythonpath.erb'),
+        require => Exec["venv_init_${name}"],
     }
 
     # Install all of the python requirements

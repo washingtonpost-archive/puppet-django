@@ -20,6 +20,7 @@ define django::webapp(
     $settings_module,
     $location,
     $vhost=undef,
+    $pythonpath=[],
     $upgrade=false,
     $code_path="${django::params::location}",
 ) {
@@ -59,6 +60,7 @@ define django::webapp(
         env_name => $name,
         upgrade => $upgrade,
         requirements => "${code_path}${repo_name}/${requirements}",
+        pythonpath => $pythonpath,
         # Include uwsgi (in order to notify the service that the requirements have finished installing)
         notify => Class['uwsgi::service'],
 
