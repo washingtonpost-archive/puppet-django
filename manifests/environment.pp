@@ -19,8 +19,8 @@ define django::environment(
 
     file {"add_to_path_${name}":
         ensure => present,
-        path => "${django::params::location}${env_name}/lib/python/site-packages/extra.pth"
-        content => template('pythonpath.erb'),
+        path => "${django::params::location}${env_name}/lib/python2.7/site-packages/extra.pth",
+        content => template('django/pythonpath.erb'),
         require => Exec["venv_init_${name}"],
     }
 
