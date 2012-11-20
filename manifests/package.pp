@@ -31,7 +31,7 @@ class django::package inherits django::params {
         ensure => directory,
         owner => $user,
         group => $group,
-        mode => 744,
+        mode => 647,
     }
 
     # Install virtualenv/virtualenvwrapper
