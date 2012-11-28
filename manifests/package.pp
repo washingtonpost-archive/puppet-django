@@ -27,6 +27,13 @@ class django::package inherits django::params {
         require => Exec['update_aptitude']
     }
 
+    file { $log:
+        ensure => directory,
+        owner => $user,
+        group => $group,
+        mode => 647,
+    }
+
     # Install virtualenv/virtualenvwrapper
     exec {'virtualenv':
         command => 'pip install virtualenv virtualenvwrapper',
