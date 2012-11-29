@@ -45,6 +45,7 @@ define django::webapp(
         proxy => "unix:/tmp/uwsgi.${name}.sock",
         uwsgi => true,
         location => "${location}/",
+        uwsgi_params => ["SCRIPT_NAME ${location}"],
     }
 
     # Clone the code repo
